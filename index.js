@@ -1,45 +1,53 @@
-const myEmojis = ["☕️", "📖", "👨‍💻", "🍻"]
+//const myEmojis = ["👨‍💻", "⛷", "🍲"]
+const emojiContainer = document.getElementById("emoji-container")
+const emojiInput = document.getElementById("emoji-input")
+const pushBtn = document.getElementById("push-btn")
+const unshiftBtn = document.getElementById("unshift-btn")
+const popBtn = document.getElementById("pop-btn")
+const shiftBtn = document.getElementById("shift-btn")
+
+//localStorage.setItem("emojis", JSON.stringify(myEmojis))
+let emojiStorage = JSON.parse(localStorage.getItem("emojis"))
+console.log(emojiStorage)
 
 function renderEmojis() {
-    const emojiContainer = document.getElementById("emoji-container")
     emojiContainer.innerHTML = ""
-    for (let i = 0; i < myEmojis.length; i++) {
+    for (let i = 0; i < emojiStorage.length; i++) {
         const emoji = document.createElement('span')
-        emoji.textContent = myEmojis[i]
+        emoji.textContent = emojiStorage[i]
         emojiContainer.append(emoji)
     }
 }
 
 renderEmojis()
 
-const pushBtn = document.getElementById("push-btn")
 pushBtn.addEventListener("click", function(){
-    const emojiInput = document.getElementById("emoji-input")
     if (emojiInput.value) {
-        myEmojis.push(emojiInput.value)
+        emojiStorage.push(emojiInput.value)
+        localStorage.setItem("emojis", JSON.stringify(emojiStorage))
         emojiInput.value = ""
         renderEmojis()
     }
 })
 
-const unshiftBtn = document.getElementById("unshift-btn")
 unshiftBtn.addEventListener("click", function(){
-    const emojiInput = document.getElementById("emoji-input")
     if (emojiInput.value) {
-        myEmojis.unshift(emojiInput.value)
+        emojiStorage.unshift(emojiInput.value)
+        localStorage.setItem("emojis", JSON.stringify(emojiStorage))
         emojiInput.value = ""
         renderEmojis()
     }
 })
 
-const popBtn = document.getElementById("pop-btn")
-popBtn.addEventListener("click", function(){
-    myEmojis.pop()
+popBtn.addEventListener("click", function() {
+    emojiStorage.pop()
+    localStorage.setItem("emojis", JSON.stringify(emojiStorage))
     renderEmojis()
 })
 
-const shiftBtn = document.getElementById("shift-btn")
-shiftBtn.addEventListener("click", function(){
-    myEmojis.shift()
+shiftBtn.addEventListener("click", function() {
+    emojiStorage.shift()
+    localStorage.setItem("emojis", JSON.stringify(emojiStorage))
     renderEmojis()
 })
+
